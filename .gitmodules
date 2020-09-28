@@ -1,0 +1,9 @@
+[submodule "optimism-monorepo"]
+	path = optimism-monorepo
+	url = git@github.com:ethereum-optimism/optimism-monorepo.git
+[submodule "go-ethereum"]
+	path = go-ethereum
+	url = git@github.com:ethereum-optimism/go-ethereum.git
+[submodule "integration-tests"]
+	path = integration-tests
+	url = git@github.com:ethereum-optimism/optimistic-rollup-integration-tests.git
