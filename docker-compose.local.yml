@@ -7,20 +7,28 @@ services:
       context: ./integration-tests
       dockerfile: Dockerfile.dev
     volumes:
-      - ./integration-tests:/mnt
+      - ./:/mnt
     env_file:
       - docker-compose.env
+    environment:
+      - "REBUILD=${REBUILD}"
+      - "FETCH_DEPS=${REBUILD}"
 
   microservices:
     build:
       context: ./optimism-monorepo
       dockerfile: Dockerfile.dev
     volumes:
+      # not ideal to mount these in /mnt,
+      # end up with directories on host fs
       - l1-node-data:/mnt/l1-node:rw
       - l2-node-data:/mnt/l2-node:rw
-      - ./optimism-monorepo:/mnt/monorepo
+      - ./:/mnt
     env_file:
       - docker-compose.env
+    environment:
+      - "REBUILD=${REBUILD}"
+      - "FETCH_DEPS=${REBUILD}"
 
   l1_chain:
     image: trufflesuite/ganache-cli:latest
@@ -38,6 +46,8 @@ services:
       - docker-compose.env
     ports:
       - 5432:5432
+    environment:
+      - "REBUILD=${REBUILD}"
 
   geth_l2:
     build:
@@ -45,11 +55,13 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - l2-node-data:/mnt/l2-node/l2:rw
-      - ./go-ethereum:/mnt/go-ethereum
+      - ./:/mnt
     env_file:
       - docker-compose.env
     ports:
       - 8545:8545
+    environment:
+      - "REBUILD="
 
 volumes:
   l1-node-data:
