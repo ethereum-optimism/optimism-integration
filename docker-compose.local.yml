@@ -6,6 +6,8 @@ services:
     build:
       context: ./integration-tests
       dockerfile: Dockerfile.dev
+    volumes:
+      - ./integration-tests:/mnt
     env_file:
       - docker-compose.env
 
