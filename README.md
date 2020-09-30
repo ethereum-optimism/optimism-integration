@@ -8,20 +8,13 @@ fullnode.
 
 ```bash
 # Git clone with submodules
-git clone --recurse-submodules xxxx
+$ git clone --recurse-submodules
 
 # Build the submodules with docker-compose
-# TODO: This is currently broken
-./build.sh
+# Optionally pass a single service to build
+# Services are defined in docker-compose.local.yml
+$ ./build.sh
 
 # Run tests
-./test.sh
-
-# Start a node
-# TODO: Add this? Maybe?
-./start-node.sh
-
-# Inspect db with pg admin
-# TODO: Add this!
-./start-postgres.sh
+$ ./test.sh
 ```
