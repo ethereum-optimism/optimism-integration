@@ -8,6 +8,7 @@ NEED_COMPILE="geth_l2 microservices integration_tests"
 
 PROJECT_LABEL="com.docker.compose.project=optimism-integration"
 COMPOSE_SERVICE_LABEL_KEY="com.docker.compose.service"
+FETCH_DEPS=${FETCH_DEPS:-''}
 
 # assign the first argument to ARGS
 ARGS=$1
@@ -38,7 +39,7 @@ done
 
 # fetch the dependencies and compile the code
 REBUILD=1 \
-FETCH_DEPS=1 \
+FETCH_DEPS=$FETCH_DEPS \
     docker-compose \
         -f docker-compose.local.yml \
         up $NEED_COMPILE
