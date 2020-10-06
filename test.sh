@@ -20,6 +20,7 @@ if [ ! -z "$PKGS" ]; then
 else
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 
+    # The directory name must match the package name with @eth-optimism/ prefix
     for PACKAGE_PATH in $DIR/integration-tests/packages/*; do
         [ -e "$PACKAGE_PATH" ] || continue
         PKGS=$(basename $PACKAGE_PATH)
@@ -32,7 +33,7 @@ else
 
         PKGS=$PKGS \
             docker-compose -f docker-compose.local.yml \
-                --env_file docker-compose.microservices.env \
+                --env-file docker-compose.microservices.env \
                 up \
                 --exit-code-from integration_tests \
                 --abort-on-container-exit
