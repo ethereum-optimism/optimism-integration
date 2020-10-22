@@ -4,6 +4,7 @@
 # The name of the directory must match the package name
 # with the "eth-optimism/" prefix.
 
+INTEGRATION_TESTS_REPO=optimistic-rollup-integration-tests
 
 if [ ! -z "$PKGS" ]; then
     docker-compose -f docker-compose.local.yml rm -f
@@ -21,7 +22,7 @@ else
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 
     # The directory name must match the package name with @eth-optimism/ prefix
-    for PACKAGE_PATH in $DIR/integration-tests/packages/*; do
+    for PACKAGE_PATH in $DIR/$INTEGRATION_TESTS_REPO/packages/*; do
         [ -e "$PACKAGE_PATH" ] || continue
         PKGS=$(basename $PACKAGE_PATH)
         echo "Running $PKGS test suite"
