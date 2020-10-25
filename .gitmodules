@@ -7,3 +7,6 @@
 [submodule "integration-tests"]
 	path = integration-tests
 	url = git@github.com:ethereum-optimism/integration-tests.git
+[submodule "docker"]
+    path = docker
+    uril = git@github.com:ethereum-optimism/docker.git
