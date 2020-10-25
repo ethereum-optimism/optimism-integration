@@ -4,8 +4,6 @@ services:
 
   integration_tests:
     image: ethereumoptimism/integration-tests:latest
-    volumes:
-      - ./integration-tests:/integration-tests
     env_file:
       - docker-compose.env
     environment:
@@ -17,15 +15,12 @@ services:
     ports:
       - 9545:9545
     volumes:
-    - ganache:/mnt/db:rw
+      - ganache:/mnt/db:rw
 
   geth_l2:
     image: ethereumoptimism/go-ethereum:latest
     volumes:
-    - ./:/mnt
-    - geth:/l2-node/l2:rw
-    # Mount the locally built geth earlier in the PATH
-    - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth
+      - geth:/l2-node/l2:rw
     env_file:
       - docker-compose.env
     ports:
@@ -35,9 +30,7 @@ services:
     image: ethereumoptimism/batch-submitter:latest
     env_file:
       - docker-compose.env
-    volumes:
-     - ./optimism-monorepo:/opt/optimism-monorepo
 
 volumes:
-  ganache:
   geth:
+  ganache:

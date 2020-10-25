@@ -6,4 +6,4 @@
 	url = git@github.com:ethereum-optimism/go-ethereum.git
 [submodule "integration-tests"]
 	path = integration-tests
-	url = git@github.com:ethereum-optimism/optimistic-rollup-integration-tests.git
+	url = git@github.com:ethereum-optimism/integration-tests.git
