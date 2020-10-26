@@ -1,6 +1,6 @@
 # Optimism Integration
 A single repository intended to provide the ability to rapidly iterate over
-the many Optimism repositories.
+the many Optimism repositories and run integration tests.
 
 ## Usage
 This package can be used to run tests, or even just spin up an easy-to-edit
@@ -10,10 +10,8 @@ optimism system.
 # Git clone with submodules
 $ git clone git@github.com:ethereum-optimism/optimism-integration.git --recurse-submodules
 
-# Build the submodules with docker-compose
-# Optionally pass a single service to build
-# Services are defined in docker-compose.local.yml
-$ ./build.sh
+# The `docker` submodule is a one stop shop for building containers
+$ ./docker/build.sh
 
 # Run tests
 $ ./test.sh
@@ -28,11 +26,6 @@ $ git submodule update
 
 ## Scripts
 
-### build.sh
-
-Builds the docker services in a container. Can specify the name of a service
-as the first argument and only that service will be built.
-
 ### test.sh
 
 Runs the containers against each test suite defined in the `integration-tests`
@@ -43,9 +36,4 @@ The package name must match the name of the directory that contains the package.
 These test suites cannot currently be ran in parallel, so if `PKGS` contains
 multiple packages delimated by a comma, the results will be non-deterministic
 and the tests should fail.
-
-### postgres.sh
-
-Runs the postgres docker images with the docker volume mounted in so that the
-data can be observed with a tool such a `pgadmin` or `psql`.
 

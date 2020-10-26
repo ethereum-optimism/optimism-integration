@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+
+  integration_tests:
+    image: ethereumoptimism/builder:master
+    volumes:
+      - ./:/mnt
+    env_file:
+      - docker-compose.env
+    working_dir: /mnt/integration-tests
+    entrypoint: ["sh", "-c", "yarn && yarn build"]
+
+  geth_l2:
+    image: ethereumoptimism/builder:master
+    volumes:
+      - ./:/mnt
+    env_file:
+      - docker-compose.env
+    ports:
+      - 8545:8545
+    entrypoint: ["make", "geth"]
+    working_dir: /mnt/go-ethereum
+
+  batch_submitter:
+    image: ethereumoptimism/builder:master
+    env_file:
+      - docker-compose.env
+    volumes:
+      - ./:/mnt
+    working_dir: /mnt/optimism-monorepo
+    entrypoint: ["sh", "-c", "yarn && yarn build"]
