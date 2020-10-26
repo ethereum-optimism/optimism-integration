@@ -3,7 +3,7 @@ version: "3"
 services:
 
   integration_tests:
-    image: ethereumoptimism/builder:latest
+    image: ethereumoptimism/builder:master
     volumes:
       - ./:/mnt
     env_file:
@@ -12,7 +12,7 @@ services:
     entrypoint: ["sh", "-c", "yarn && yarn build"]
 
   geth_l2:
-    image: ethereumoptimism/builder:latest
+    image: ethereumoptimism/builder:master
     volumes:
       - ./:/mnt
     env_file:
@@ -23,7 +23,7 @@ services:
     working_dir: /mnt/go-ethereum
 
   batch_submitter:
-    image: ethereumoptimism/builder:latest
+    image: ethereumoptimism/builder:master
     env_file:
       - docker-compose.env
     volumes:
