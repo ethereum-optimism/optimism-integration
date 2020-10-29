@@ -3,7 +3,7 @@
 # Start the services without all of the microservices
 # or running the integration tests
 
-SERVICES='geth_l2 l1_chain batch_submitter'
+SERVICES='geth_l2 l1_chain batch_submitter deployer'
 
 docker-compose -f docker-compose.yml rm -f
 docker volume ls \
