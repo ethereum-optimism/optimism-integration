@@ -30,7 +30,7 @@ else
             | xargs docker volume rm 2&>/dev/null
 
         PKGS=$PKGS \
-            docker-compose -f docker-compose.local.yml \
+            docker-compose -f docker-compose.yml \
                 --env-file docker-compose.microservices.env \
                 up \
                 --exit-code-from integration_tests \
