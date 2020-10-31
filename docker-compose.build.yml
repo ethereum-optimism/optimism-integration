@@ -12,15 +12,17 @@ services:
     entrypoint: ["sh", "-c", "yarn && yarn build"]
 
   geth_l2:
-    image: ethereumoptimism/builder:master
+    build:
+      context: ./docker/go-ethereum
+      dockerfile: Dockerfile.build
     volumes:
-      - ./:/mnt
+      - ./go-ethereum:/go-ethereum
     env_file:
       - docker-compose.env
     ports:
       - 8545:8545
+    working_dir: /go-ethereum
     entrypoint: ["make", "geth"]
-    working_dir: /mnt/go-ethereum
 
   batch_submitter:
     image: ethereumoptimism/builder:master

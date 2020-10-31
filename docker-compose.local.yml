@@ -3,7 +3,7 @@ version: "3"
 services:
 
   integration_tests:
-    image: ethereumoptimism/integration-tests:docker-entrypoint-new
+    image: ethereumoptimism/integration-tests:latest
     volumes:
       - ./integration-tests:/integration-tests
       - ./docker/integration-tests/wait-for-l1-and-l2-and-contract-deployment.sh:/integration-tests/wait.sh
@@ -18,17 +18,16 @@ services:
       - 9545:9545
 
   geth_l2:
-    image: ethereumoptimism/go-ethereum:docker-entrypoint-new
+    image: ethereumoptimism/go-ethereum:latest
     volumes:
-    - ./:/mnt
-    - geth:/l2-node/l2:rw
-    # Mount the locally built geth earlier in the PATH
-    - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth
+      - ./go-ethereum:/go-ethereum
+      - ./docker/deployer/wait-for-l1.sh:/bin/wait-for-l1.sh
     env_file:
       - docker-compose.env
     ports:
       - 8545:8545
-    entrypoint: ["/bin/wait-for-l1.sh", "geth", "--verbosity=6"]
+    working_dir: /go-ethereum
+    entrypoint: ["/bin/wait-for-l1.sh", "/go-ethereum/build/bin/geth", "--verbosity=6"]
 
   batch_submitter:
     image: ethereumoptimism/batch-submitter:master
