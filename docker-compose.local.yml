@@ -10,7 +10,8 @@ services:
     env_file:
       - docker-compose.env
     environment:
-      - "PKGS=integration-tests"
+      - "PKGS=${PKGS}"
+      #- "PKGS=integration-tests"
 
   l1_chain:
     image: ethereumoptimism/hardhat:master
@@ -38,7 +39,7 @@ services:
      - ./optimism-monorepo:/opt/optimism-monorepo
 
   deployer:
-    image: ethereumoptimism/deployer:master
+    image: ethereumoptimism/deployer:feat_no-proxy
     env_file:
       - docker-compose.env
 
