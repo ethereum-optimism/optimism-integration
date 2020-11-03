@@ -4,7 +4,7 @@
 # The name of the directory must match the package name
 # with the "eth-optimism/" prefix.
 
-DOCKERFILE=docker-compose.local.yml
+DOCKERFILE=docker-compose.yml
 
 if [ ! -z "$PKGS" ]; then
     docker-compose -f $DOCKERFILE  rm -f
