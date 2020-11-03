@@ -6,18 +6,18 @@ services:
     image: ethereumoptimism/integration-tests:latest
     volumes:
       - ./integration-tests:/integration-tests
+      - ./docker/integration-tests/wait-for-l1-and-l2-and-contract-deployment.sh:/integration-tests/wait.sh
     env_file:
       - docker-compose.env
     environment:
       - "PKGS=${PKGS}"
 
   l1_chain:
-    image: ethereumoptimism/ganache-cli:latest
-    entrypoint: node /app/ganache-core.docker.cli.js -p 9545 --gasPrice="0x0" --callGasLimit="0x1fffffffffffff" --gasLimit="0x1fffffffffffff" --account="0xdf8b81d840b9cafc8cd68cf94f093726b174b5f109eba11a3f2a559e5f9e8bce,1000000000000000000000" --account="0x06caa6f48604a58872e27db8c2980584e20faab37613f51383bb5be62db80c50,100000000000000000000" --db /mnt/db
+    image: ethereumoptimism/hardhat:latest
     ports:
       - 9545:9545
-    volumes:
-    - ganache:/mnt/db:rw
+    env_file:
+      - docker-compose.env
 
   geth_l2:
     image: ethereumoptimism/go-ethereum:latest
@@ -38,6 +38,10 @@ services:
     volumes:
      - ./optimism-monorepo:/opt/optimism-monorepo
 
+  deployer:
+    image: ethereumoptimism/deployer:latest
+    env_file:
+      - docker-compose.env
+
 volumes:
-  ganache:
   geth:
