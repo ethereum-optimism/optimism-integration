@@ -3,7 +3,7 @@ version: "3"
 services:
 
   integration_tests:
-    image: ethereumoptimism/integration-tests:latest
+    image: ethereumoptimism/integration-tests:${INTEGRATION_TESTS_TAG:-latest}
     volumes:
       - ./integration-tests:/integration-tests
       - ./docker/integration-tests/wait-for-l1-and-l2-and-contract-deployment.sh:/integration-tests/wait.sh
@@ -13,14 +13,14 @@ services:
       - "PKGS=${PKGS}"
 
   l1_chain:
-    image: ethereumoptimism/hardhat:latest
+    image: ethereumoptimism/hardhat:${L1_CHAIN_TAG:-latest}
     ports:
       - 9545:9545
     env_file:
       - docker-compose.env
 
   geth_l2:
-    image: ethereumoptimism/go-ethereum:latest
+    image: ethereumoptimism/go-ethereum:${GETH_L2_TAG:-latest}
     volumes:
     - ./:/mnt
     - geth:/l2-node/l2:rw
@@ -32,14 +32,14 @@ services:
       - 8545:8545
 
   batch_submitter:
-    image: ethereumoptimism/batch-submitter:latest
+    image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-latest}
     env_file:
       - docker-compose.env
     volumes:
      - ./optimism-monorepo:/opt/optimism-monorepo
 
   deployer:
-    image: ethereumoptimism/deployer:latest
+    image: ethereumoptimism/deployer:${DEPLOYER_TAG:-latest}
     env_file:
       - docker-compose.env
 
