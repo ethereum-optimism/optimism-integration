@@ -3,8 +3,7 @@ version: "3"
 services:
 
   integration_tests:
-    #image: ethereumoptimism/integration-tests:master
-    image: ethereumoptimism/integration-tests:docker-entrypoint-new
+    image: ethereumoptimism/integration-tests:master
     env_file:
       - ./docker-compose.env
     environment:
@@ -15,28 +14,27 @@ services:
     ports:
       - 9545:9545
     env_file:
-      - ./docker-compose.env
+      - docker-compose.env
 
   geth_l2:
-    #image: ethereumoptimism/go-ethereum:master
-    image: ethereumoptimism/go-ethereum:docker-entrypoint-new
+    image: ethereumoptimism/go-ethereum:master
     volumes:
       - geth:/l2-node/l2:rw
     env_file:
-      - ./docker-compose.env
+      - docker-compose.env
     ports:
       - 8545:8545
 
   batch_submitter:
     image: ethereumoptimism/batch-submitter:master
     env_file:
-      - ./docker-compose.env
+      - docker-compose.env
 
   deployer:
-    #image: ethereumoptimism/deployer:master
-    image: ethereumoptimism/deployer:feat_no-proxy
+    image: ethereumoptimism/deployer:master
+    #image: ethereumoptimism/deployer:feat_no-proxy
     env_file:
-      - ./docker-compose.env
+      - docker-compose.env
     ports:
       - 8080:8080
 
