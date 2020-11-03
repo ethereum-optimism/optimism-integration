@@ -12,11 +12,18 @@
 USAGE="
 $ ./scripts/build-local.sh
 Build docker images from git branches.
+All images will be built if no service
+is specificed.
+
 CLI Arguments:
   -s|--service   - service to build
   -h|--help      - help message
 "
 
+# These services are defined in the `docker-compose.build.yml`
+SERVICES="geth_l2
+batch_submitter
+integration_tests"
 SERVICE=""
 
 while (( "$#" )); do
@@ -41,9 +48,12 @@ while (( "$#" )); do
   esac
 done
 
-if [ -z $SERVICE ]; then
-    echo "Please select service to build"
-    exit 1
-fi
+docker-compose -f docker-compose.build.yml down -v --remove-orphans
 
-docker-compose -f docker-compose.build.yml up $SERVICE
+if [ -z $SERVICE ]; then
+    for SERVICE in $SERVICES; do
+      docker-compose -f docker-compose.build.yml up $SERVICE
+    done
+else
+    docker-compose -f docker-compose.build.yml up $SERVICE
+fi
