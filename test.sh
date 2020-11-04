@@ -37,6 +37,13 @@ GETH_L2_TAG=${GETH_L2_TAG:-latest}
 L1_CHAIN_TAG=${L1_CHAIN_TAG:-latest}
 INTEGRATION_TESTS_TAG=${INTEGRATION_TESTS_TAG:-latest}
 
+# Replace slash with underscore in tags
+DEPLOYER_TAG=$(echo $DEPLOYER_TAG | sed 's/\//_/')
+BATCH_SUBMITTER_TAG=$(echo $BATCH_SUBMITTER_TAG | sed 's/\//_/')
+GETH_L2_TAG=$(echo $GETH_L2_TAG | sed 's/\//_/')
+L1_CHAIN_TAG=$(echo $L1_CHAIN_TAG | sed 's/\//_/')
+INTEGRATION_TESTS_TAG=$(echo $INTEGRATION_TESTS_TAG | sed 's/\//_/')
+
 function run {
     PKGS=$PKGS \
     DEPLOYER_TAG=$DEPLOYER_TAG \
