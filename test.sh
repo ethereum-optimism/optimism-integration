@@ -46,13 +46,14 @@ INTEGRATION_TESTS_TAG=$(echo $INTEGRATION_TESTS_TAG | sed 's/\//_/g')
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
+
 function run {
     cmd="docker-compose -f $DIR/$DOCKERFILE"
     if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
         cmd="$cmd -f $DIR/optional/$PKGS-service.yml"
     fi
-    cmd="$cmd up"
-    cmd="$cmd --exit-code-from integration_tests"
+    cmd="$cmd up --exit-code-from integration_tests"
     cmd="$cmd --abort-on-container-exit"
 
     PKGS=$PKGS \

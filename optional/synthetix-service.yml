@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+
+  synthetix_deployer:
+    image: ethereumoptimism/synthetix-deployer:${SYNTHETIX_DEPLOYER_TAG:-latest}
+    env_file:
+      - ./docker-compose.env
+    environment:
+      - SYNTHETIX_TARGET=${SYNTHETIX_TARGET:-L2}
+    ports:
+      - 8081:8081
