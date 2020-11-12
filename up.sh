@@ -1,14 +1,29 @@
 #!/bin/bash
 
-# Start the services without all of the microservices
-# or running the integration tests
+# Start services without the integration tests
+# The `-s` flag takes a string of services to run.
+# The `-l` flag will use mounted code.
 
 SERVICES='geth_l2 l1_chain batch_submitter deployer'
+DOCKERFILE="docker-compose.yml"
 
-docker-compose -f docker-compose.yml rm -f
-docker volume ls \
-    --filter='label=com.docker.compose.project=optimism-integration' \
-    | xargs docker volume rm 2&>/dev/null
+while (( "$#" )); do
+  case "$1" in
+    -l|--local)
+      DOCKERFILE="docker-compose.local.yml"
+      shift 1
+      ;;
+    -s|--services)
+      SERVICES="$2"
+      shift 2
+      ;;
+    *)
+      echo "Unknown argument $1" >&2
+      shift
+      ;;
+  esac
+done
 
-docker-compose -f docker-compose.yml \
+docker-compose -f $DOCKERFILE down -v --remove-orphans
+docker-compose -f $DOCKERFILE \
   up $SERVICES
