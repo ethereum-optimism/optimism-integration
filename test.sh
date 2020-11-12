@@ -53,7 +53,8 @@ function run {
     if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
         cmd="$cmd -f $DIR/optional/$PKGS-service.yml"
     fi
-    cmd="$cmd up --exit-code-from integration_tests"
+    cmd="$cmd up"
+    cmd="$cmd --exit-code-from integration_tests"
     cmd="$cmd --abort-on-container-exit"
 
     PKGS=$PKGS \
