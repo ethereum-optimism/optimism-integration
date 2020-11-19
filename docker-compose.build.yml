@@ -15,6 +15,7 @@ services:
     image: ethereumoptimism/builder:master
     volumes:
       - ./:/mnt
+      - $GOPATH/pkg/mod:/go/pkg/mod
     env_file:
       - docker-compose.env
     ports:
