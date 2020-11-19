@@ -42,6 +42,8 @@ services:
     image: ethereumoptimism/deployer:${DEPLOYER_TAG:-latest}
     env_file:
       - docker-compose.env
+    ports:
+      - 8080:8080
 
 volumes:
   geth:
