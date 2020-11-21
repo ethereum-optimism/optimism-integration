@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+
+  verifier:
+    image: ethereumoptimism/go-ethereum:${VERIFIER_TAG:-latest}
+    volumes:
+      - verifier:/root/.ethereum:rw
+    environment:
+      - ROLLUP_VERIFIER_ENABLE=true
+      - CHAIN_ID=420
+      - NETWORK_ID=420
+      - DEV=true
+      - DATADIR=/root/.ethereum
+      - RPC_ENABLE=true
+      - RPC_ADDR=verifier
+      - RPC_CORS_DOMAIN='*'
+      - RPC_VHOSTS='*'
+      - RPC_PORT=8045
+      - WS=true
+      - WS_ADDR=0.0.0.0
+      - WS_PORT=8046
+      - IPC_DISABLE=true
+      - TARGET_GAS_LIMIT=12000000
+      - RPC_API='eth,net,rollup,web3'
+      - WS_API='eth,net,rollup,web3'
+      - WS_ORIGINS='*'
+      - GASPRICE=0
+      - NO_USB=true
+      - GCMODE=archive
+      - NO_DISCOVER=true
+      - USING_OVM='true'
+      - ETH1_SYNC_SERVICE_ENABLE=true
+      - ETH1_CTC_DEPLOYMENT_HEIGHT=1
+      - ETH1_HTTP=http://l1_chain:9545
+      - ETH1_CONFIRMATION_DEPTH=0
+      - DEPLOYER_HTTP=http://deployer:8080
+      - L1_NODE_WEB3_URL=${L1_NODE_WEB3_URL:-http://l1_chain:9545}
+    ports:
+      - 8045:8045
+      - 8046:8046
+
+volumes:
+  verifier:
