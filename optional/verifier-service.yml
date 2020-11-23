@@ -35,7 +35,7 @@ services:
       - ETH1_HTTP=http://l1_chain:9545
       - ETH1_CONFIRMATION_DEPTH=0
       - DEPLOYER_HTTP=http://deployer:8080
-      - L1_NODE_WEB3_URL=${L1_NODE_WEB3_URL:-http://l1_chain:9545}
+      - L1_NODE_WEB3_URL=http://l1_chain:9545
     ports:
       - 8045:8045
       - 8046:8046
