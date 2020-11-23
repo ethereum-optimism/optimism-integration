@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+
+  verifier:
+    volumes:
+    - verifier:/l2-node/l2:rw
+    # Mount the locally built geth earlier in the PATH
+    - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth
