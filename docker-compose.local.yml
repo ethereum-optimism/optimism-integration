@@ -22,14 +22,53 @@ services:
   geth_l2:
     image: ethereumoptimism/go-ethereum:${GETH_L2_TAG:-latest}
     volumes:
-    - ./:/mnt
-    - geth:/l2-node/l2:rw
-    # Mount the locally built geth earlier in the PATH
-    - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth
     env_file:
       - docker-compose.env
     ports:
       - 8545:8545
+  geth_l2:
+    image: ethereumoptimism/go-ethereum:${GETH_L2_TAG:-latest}
+    volumes:
+      - ./:/mnt
+      # Mount the locally built geth earlier in the PATH
+      - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth
+      - geth:/ethereum:rw
+    environment:
+      - CHAIN_ID=420
+      - NETWORK_ID=420
+      - DEV=true
+      - RPC_ENABLE=true
+      - RPC_ADDR=0.0.0.0
+      - RPC_CORS_DOMAIN='*'
+      - RPC_VHOSTS='*'
+      - RPC_PORT=8545
+      - WS=true
+      - WS_ADDR=0.0.0.0
+      - IPC_DISABLE=true
+      - TARGET_GAS_LIMIT=12000000
+      - RPC_API=rollup,eth,net,web3
+      - WS_API=net,eth,rollup
+      - WS_ORIGINS='*'
+      - GASPRICE=0
+      - NO_USB=true
+      - GCMODE=archive
+      - NO_DISCOVER=true
+      - ETH1_SYNC_SERVICE_ENABLE=true
+      - ETH1_CTC_DEPLOYMENT_HEIGHT=3807443
+      - ETH1_ADDRESS_RESOLVER_ADDRESS=0x3cCa266858610E11707b6EE5Eb130d4930Ac461D
+      - L1_NODE_WEB3_URL=
+      - ETH1_HTTP=
+      - ETH1_NETWORKID=5
+      - ETH1_CHAINID=5
+      - ETH1_CONFIRMATION_DEPTH=5
+      - USING_OVM=true
+      - TX_INGESTION_SIGNER_KEY=
+      - TX_INGESTION_SIGNER_ADDRESS=
+      - ETH1_L1_CROSS_DOMAIN_MESSENGER_ADDRESS=0x1e3aa06079fDa5F395E663474ec5f7207A131bD2
+      - ROLLUP_ADDRESS_MANAGER_OWNER_ADDRESS=0x2111bC0fD553641A814f702c3c0E19F2aaB21683
+    ports:
+      - 8545:8545
+    entrypoint: ["geth", "--verbosity=6", "--datadir=/ethereum", "--rpcvhosts=*", "--rpccorsdomain=*"]
 
   batch_submitter:
     image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-latest}
