@@ -24,6 +24,7 @@ services:
       - docker-compose.env
     ports:
       - 8545:8545
+      - 8546:8546
 
   batch_submitter:
     image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-latest}

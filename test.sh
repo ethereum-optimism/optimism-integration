@@ -44,32 +44,46 @@ GETH_L2_TAG=$(echo $GETH_L2_TAG | sed 's/\//_/g')
 L1_CHAIN_TAG=$(echo $L1_CHAIN_TAG | sed 's/\//_/g')
 INTEGRATION_TESTS_TAG=$(echo $INTEGRATION_TESTS_TAG | sed 's/\//_/g')
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
+
 function run {
+    cmd="docker-compose -f $DIR/$DOCKERFILE"
+    if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
+        cmd="$cmd -f $DIR/optional/$PKGS-service.yml"
+    fi
+    cmd="$cmd up"
+    cmd="$cmd --exit-code-from integration_tests"
+    cmd="$cmd --abort-on-container-exit"
+
     PKGS=$PKGS \
     DEPLOYER_TAG=$DEPLOYER_TAG \
     BATCH_SUBMITTER_TAG=$BATCH_SUBMITTER_TAG \
     GETH_L2_TAG=$GETH_L2_TAG \
     L1_CHAIN_TAG=$L1_CHAIN_TAG \
     INTEGRATION_TESTS_TAG=$INTEGRATION_TESTS_TAG \
-        docker-compose -f $DOCKERFILE \
-            up \
-            --exit-code-from integration_tests \
-            --abort-on-container-exit
+        $cmd
+}
+
+function clean {
+    cmd="docker-compose -f $DOCKERFILE"
+    if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
+        cmd="$cmd -f $DIR/optional/$PKGS-service.yml"
+    fi
+    cmd="$cmd down -v --remove-orphans"
+    $cmd
 }
 
 if [ ! -z "$PKGS" ]; then
-    docker-compose -f $DOCKERFILE down -v --remove-orphans
+    clean
     run
 else
-    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
-
     # The directory name must match the package name with @eth-optimism/ prefix
     for PACKAGE_PATH in $DIR/integration-tests/packages/*; do
         [ -e "$PACKAGE_PATH" ] || continue
         PKGS=$(basename $PACKAGE_PATH)
         echo "Running $PKGS test suite"
 
-        docker-compose -f $DOCKERFILE down -v --remove-orphans
+        clean
         run
     done
 fi
