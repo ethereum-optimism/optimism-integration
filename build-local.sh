@@ -48,7 +48,10 @@ while (( "$#" )); do
   esac
 done
 
-docker-compose -f docker-compose.build.yml down -v --remove-orphans
+docker-compose -f docker-compose.build.yml down --remove-orphans
+
+# Remove all volumes except for the go-modules volume
+docker volume ls --format='{{.Name}}' | grep optimism-integration | grep -v go-modules | xargs docker volume rm -f
 
 if [ -z $SERVICE ]; then
     for SERVICE in $SERVICES; do
