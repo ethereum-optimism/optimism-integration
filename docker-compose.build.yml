@@ -1,7 +1,9 @@
 version: "3"
 
-services:
+volumes:
+  go-modules: # Define a volume for Go modules
 
+services:
   integration_tests:
     image: ethereumoptimism/builder:master
     volumes:
@@ -15,7 +17,7 @@ services:
     image: ethereumoptimism/builder:master
     volumes:
       - ./:/mnt
-      - $GOPATH/pkg/mod:/go/pkg/mod
+      - go-modules:/go/pkg/mod # Put modules cache into a separate volume
     env_file:
       - docker-compose.env
     ports:
