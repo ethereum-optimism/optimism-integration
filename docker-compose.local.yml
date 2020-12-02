@@ -1,7 +1,9 @@
 version: "3"
 
-services:
+volumes:
+  go-modules: # Define a volume for Go modules
 
+services:
   integration_tests:
     image: ethereumoptimism/integration-tests:${INTEGRATION_TESTS_TAG:-latest}
     volumes:
@@ -24,8 +26,8 @@ services:
     volumes:
     - ./:/mnt
     - geth:/l2-node/l2:rw
-    # Mount the locally built geth earlier in the PATH
-    - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth
+    - go-modules:/go/pkg/mod # Put modules cache into a separate volume
+    - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth # Mount the locally built geth earlier in the PATH
     env_file:
       - docker-compose.env
     ports:
