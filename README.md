@@ -39,19 +39,16 @@ $ ./up.sh
 ```
 The second way is to build images from your local submodules. This is recommened if you are locally changing submodules (e.g. testing local changes to geth). To get this set up the first time, run 
 ```bash
-$ ./build-local
+$ ./build-local.sh
 ```
 Then as you make changes to your local submodules (e.g. to `go-ethereum`), then make sure to build those specific services:
 ```bash
-$ ./build-local -s geth_l2
+$ ./build-local.sh -s geth_l2
 ```
 Then add the `-l` flag to run: 
 ```bash
 $ ./up.sh -1
 ```
-
-
-
 
 ### test.sh
 
