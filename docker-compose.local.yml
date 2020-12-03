@@ -1,8 +1,5 @@
 version: "3"
 
-volumes:
-  go-modules: # Define a volume for Go modules
-
 services:
   integration_tests:
     image: ethereumoptimism/integration-tests:${INTEGRATION_TESTS_TAG:-latest}
@@ -49,3 +46,4 @@ services:
 
 volumes:
   geth:
+  go-modules:

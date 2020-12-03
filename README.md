@@ -61,3 +61,9 @@ These test suites cannot currently be ran in parallel, so if `PKGS` contains
 multiple packages delimated by a comma, the results will be non-deterministic
 and the tests should fail.
 
+The `optional` directory contains additional service files that will be used
+if the name of the test suite has a corresponding file
+`optional/<test-suite>-service.yml`. The name of the test suite is defined
+by the directory name in `integration-tests/packages`. Note that the
+corresponding `package.json` in the package must have the name
+`@eth-optimism/<package-name>`.
