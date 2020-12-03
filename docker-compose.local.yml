@@ -49,3 +49,4 @@ services:
 
 volumes:
   geth:
+  go-modules:
