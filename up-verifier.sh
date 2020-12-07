@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOCKERFILE='docker-compose.local.yml'
-SERVICES="up deployer verifier l1_chain batch_submitter geth_l2"
+SERVICES="deployer verifier l1_chain batch_submitter geth_l2"
 
 while (( "$#" )); do
   case "$1" in
@@ -30,4 +30,4 @@ docker-compose \
     -f $DOCKERFILE \
     -f optional/verifier-service.yml \
     -f optional/verifier-service.local.yml \
-    $SERVICES
+    up $SERVICES
