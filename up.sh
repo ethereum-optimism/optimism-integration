@@ -31,6 +31,6 @@ docker-compose \
     down -v --remove-orphans
 
 docker-compose \
-    -f $DOCKERFILE \
+    -f $DIR/$DOCKERFILE \
     -f $DIR/optional/tx-ingestion-service.yml \
     up $SERVICES
