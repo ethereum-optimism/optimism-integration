@@ -4,7 +4,8 @@
 # The `-s` flag takes a string of services to run.
 # The `-l` flag will use mounted code.
 
-SERVICES='geth_l2 l1_chain batch_submitter deployer'
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
+SERVICES='geth_l2 l1_chain batch_submitter deployer message_relayer'
 DOCKERFILE="docker-compose.yml"
 
 while (( "$#" )); do
@@ -24,6 +25,12 @@ while (( "$#" )); do
   esac
 done
 
-docker-compose -f $DOCKERFILE down -v --remove-orphans
-docker-compose -f $DOCKERFILE \
-  up $SERVICES
+docker-compose \
+    -f $DIR/$DOCKERFILE \
+    -f $DIR/optional/tx-ingestion-service.yml \
+    down -v --remove-orphans
+
+docker-compose \
+    -f $DOCKERFILE \
+    -f $DIR/optional/tx-ingestion-service.yml \
+    up $SERVICES
