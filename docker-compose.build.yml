@@ -5,7 +5,7 @@ volumes:
 
 services:
   integration_tests:
-    image: ethereumoptimism/builder:master
+    image: ethereumoptimism/builder:latest
     volumes:
       - ./:/mnt
     env_file:
@@ -14,7 +14,7 @@ services:
     entrypoint: ["sh", "-c", "yarn && yarn build"]
 
   geth_l2:
-    image: ethereumoptimism/builder:master
+    image: ethereumoptimism/builder:latest
     volumes:
       - ./:/mnt
       - go-modules:/go/pkg/mod # Put modules cache into a separate volume
@@ -26,7 +26,7 @@ services:
     working_dir: /mnt/go-ethereum
 
   batch_submitter:
-    image: ethereumoptimism/builder:master
+    image: ethereumoptimism/builder:latest
     env_file:
       - docker-compose.env
     volumes:
