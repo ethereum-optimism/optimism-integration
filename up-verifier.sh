@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Run the verifier along with the sequencer using
+# docker-compose
+
 DOCKERFILE='docker-compose.yml'
 SERVICES='deployer verifier l1_chain batch_submitter geth_l2'
 LOCAL_VERIFIER=
