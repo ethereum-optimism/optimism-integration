@@ -1,6 +1,8 @@
 # Optimism Integration
-A single repository intended to provide the ability to rapidly iterate over
-the many Optimism repositories and run integration tests.
+A single repository intended to provide the ability to run a local
+Optimistic Ethereum enviornment including both L1 & L2 chains. This
+can be used to rapidly iterate over the many Optimism repositories and
+run integration tests.
 
 ## Usage
 This package can be used to run tests, or even just spin up an easy-to-edit
@@ -15,6 +17,9 @@ $ ./docker/build.sh
 
 # Run tests
 $ ./test.sh
+
+# Run full system
+$ ./up.sh
 ```
 
 Submodules are updated automatically as commits land in `master`.
