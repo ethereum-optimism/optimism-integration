@@ -7,11 +7,13 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 SERVICES='geth_l2 l1_chain batch_submitter deployer message_relayer data_transport_layer'
 DOCKERFILE="docker-compose.yml"
+IS_LOCAL=
 
 while (( "$#" )); do
   case "$1" in
     -l|--local)
       DOCKERFILE="docker-compose.local.yml"
+      IS_LOCAL=true
       shift 1
       ;;
     -s|--services)
@@ -24,6 +26,20 @@ while (( "$#" )); do
       ;;
   esac
 done
+
+
+function branch() {
+    cd $1
+    BRANCH=$(git branch --show-current)
+    COMMIT=$(git rev-parse --short HEAD)
+    echo "$1 $BRANCH $COMMIT"
+}
+
+if [ ! -z "$IS_LOCAL" ]; then
+    (branch go-ethereum)
+    (branch optimism-monorepo)
+    (branch integration-tests)
+fi
 
 docker-compose \
     -f $DIR/$DOCKERFILE \
