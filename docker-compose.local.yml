@@ -35,7 +35,7 @@ services:
     env_file:
       - docker-compose.env
     volumes:
-     - ./optimism-monorepo:/opt/optimism-monorepo
+     - ./batch-submitter:/opt/batch-submitter
 
   deployer:
     image: ethereumoptimism/deployer:${DEPLOYER_TAG:-latest}

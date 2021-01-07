@@ -10,3 +10,6 @@
 [submodule "docker"]
 	path = docker
 	url = git@github.com:ethereum-optimism/docker.git
+[submodule "batch-submitter"]
+	path = batch-submitter
+	url = https://github.com/ethereum-optimism/batch-submitter
