@@ -31,5 +31,5 @@ services:
       - docker-compose.env
     volumes:
       - ./:/mnt
-    working_dir: /mnt/optimism-monorepo
+    working_dir: /mnt/batch-submitter
     entrypoint: ["sh", "-c", "yarn && yarn build"]
