@@ -8,5 +8,6 @@ services:
     environment:
       # derived key from mnemonic that is seeded with ETH on L1
       - DEPLOYER_PRIVATE_KEY_2=0x23d9aeeaa08ab710a57972eb56fc711d9ab13afdecc92c89586e0150bfa380a6
+
     ports:
       - 8081:8081
