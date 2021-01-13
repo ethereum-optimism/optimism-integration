@@ -1,12 +1,12 @@
 version: "3"
 
 services:
-
   synthetix_deployer:
-    image: ethereumoptimism/synthetix-deployer:${SYNTHETIX_DEPLOYER_TAG:-latest}
+    image: ethereumoptimism/synthetix-deployer:${SYNTHETIX_DEPLOYER_TAG:-master}
     env_file:
-      - ./docker-compose.env
+      - docker-compose.env
     environment:
-      - SYNTHETIX_TARGET=${SYNTHETIX_TARGET:-L2}
+      # derived key from mnemonic that is seeded with ETH on L1
+      - DEPLOYER_PRIVATE_KEY_2=0x23d9aeeaa08ab710a57972eb56fc711d9ab13afdecc92c89586e0150bfa380a6
     ports:
       - 8081:8081
