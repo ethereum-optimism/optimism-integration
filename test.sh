@@ -36,6 +36,7 @@ BATCH_SUBMITTER_TAG=${BATCH_SUBMITTER_TAG:-latest}
 GETH_L2_TAG=${GETH_L2_TAG:-latest}
 L1_CHAIN_TAG=${L1_CHAIN_TAG:-latest}
 INTEGRATION_TESTS_TAG=${INTEGRATION_TESTS_TAG:-latest}
+MESSAGE_RELAYER_TAG=${MESSAGE_RELAYER_TAG:-latest}
 
 # Replace slash with underscore in tags
 DEPLOYER_TAG=$(echo $DEPLOYER_TAG | sed 's/\//_/g')
@@ -43,6 +44,7 @@ BATCH_SUBMITTER_TAG=$(echo $BATCH_SUBMITTER_TAG | sed 's/\//_/g')
 GETH_L2_TAG=$(echo $GETH_L2_TAG | sed 's/\//_/g')
 L1_CHAIN_TAG=$(echo $L1_CHAIN_TAG | sed 's/\//_/g')
 INTEGRATION_TESTS_TAG=$(echo $INTEGRATION_TESTS_TAG | sed 's/\//_/g')
+MESSAGE_RELAYER_TAG=$(echo $MESSAGE_RELAYER_TAG | sed 's/\//_/g')
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 
@@ -61,6 +63,7 @@ function run {
     GETH_L2_TAG=$GETH_L2_TAG \
     L1_CHAIN_TAG=$L1_CHAIN_TAG \
     INTEGRATION_TESTS_TAG=$INTEGRATION_TESTS_TAG \
+    MESSAGE_RELAYER_TAG=$MESSAGE_RELAYER_TAG \
         $cmd
 }
 
