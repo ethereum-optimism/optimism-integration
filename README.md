@@ -103,7 +103,7 @@ $ ./build-local.sh -s geth_l2
 To specify using the submodules with `up.sh`, use the `-l` flag:
 
 ```bash
-$ ./up.sh -1
+$ ./up.sh -l
 ```
 
 ### test.sh
