@@ -48,6 +48,8 @@ MESSAGE_RELAYER_TAG=$(echo $MESSAGE_RELAYER_TAG | sed 's/\//_/g')
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
+
 function run {
     cmd="docker-compose -f $DIR/$DOCKERFILE"
     if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
