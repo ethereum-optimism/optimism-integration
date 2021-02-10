@@ -31,6 +31,13 @@ services:
     env_file:
       - docker-compose.env
 
+  data_transport_layer:
+    image: ethereumoptimism/data-transport-layer:${DATA_TRANSPORT_LAYER_TAG:-latest}
+    env_file:
+      - docker-compose.env
+    ports:
+      - 7878:7878
+
   deployer:
     image: ethereumoptimism/deployer:${DEPLOYER_TAG:-latest}
     env_file:
