@@ -33,3 +33,12 @@ services:
       - ./:/mnt
     working_dir: /mnt/batch-submitter
     entrypoint: ["sh", "-c", "yarn && yarn build"]
+
+  data_transport_layer:
+    image: ethereumoptimism/builder:latest
+    env_file:
+      - docker-compose.env
+    volumes:
+      - ./:/mnt
+    working_dir: /mnt/data-transport-layer
+    entrypoint: ["sh", "-c", "yarn && yarn build"]
