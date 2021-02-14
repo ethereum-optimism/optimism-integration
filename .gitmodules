@@ -10,3 +10,6 @@
 [submodule "batch-submitter"]
 	path = batch-submitter
 	url = git@github.com:ethereum-optimism/batch-submitter.git
+[submodule "data-transport-layer"]
+	path = data-transport-layer
+	url = git@github.com:ethereum-optimism/data-transport-layer.git
