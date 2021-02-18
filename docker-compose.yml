@@ -17,7 +17,7 @@ services:
       - docker-compose.env
 
   geth_l2:
-    image: ethereumoptimism/go-ethereum:${GETH_L2_TAG:-latest}
+    image: ethereumoptimism/go-ethereum:${GETH_L2_TAG:-v0.1.2}
     volumes:
       - geth:/l2-node/l2:rw
     env_file:
@@ -27,7 +27,7 @@ services:
       - 8546:8546
 
   batch_submitter:
-    image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-latest}
+    image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-v0.1.3}
     env_file:
       - docker-compose.env
 
@@ -39,7 +39,7 @@ services:
       - 7878:7878
 
   deployer:
-    image: ethereumoptimism/deployer:${DEPLOYER_TAG:-latest}
+    image: ethereumoptimism/deployer:${DEPLOYER_TAG:-v0.1.5}
     env_file:
       - docker-compose.env
     ports:
