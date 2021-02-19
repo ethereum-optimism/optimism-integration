@@ -9,7 +9,6 @@ run integration tests.
 This repo requires `docker` at version `20.10.2` and a docker memory allocation of >=12 GB.
 
 ## Usage
-
 This package can be used to run tests, or even just spin up an easy-to-edit
 optimism system.
 
