@@ -5,6 +5,13 @@ Optimistic Ethereum environment including both L1 & L2 chains. This
 can be used to rapidly iterate over the many Optimism repositories and
 run integration tests.
 
+## Requirements
+
+- [docker](https://docs.docker.com/get-docker/)
+  - At least version 19.03.12
+- [docker-compose](https://docs.docker.com/compose/install/)
+  - At least version 1.27.3
+
 ## Usage
 This package can be used to run tests, or even just spin up an easy-to-edit
 optimism system.
