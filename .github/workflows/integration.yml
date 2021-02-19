@@ -18,5 +18,4 @@ jobs:
 
       - name: Test
         run: |
-          ls
           ./test.sh
