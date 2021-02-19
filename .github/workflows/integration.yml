@@ -18,6 +18,7 @@ jobs:
 
       - name: Submodules
         run: |
+          sed -i -Ee's#git@github.com:([^/]*)/(.*).git#https://github.com/\1/\2.git#' .gitmodules
           git submodule init
           git submodule update
 
