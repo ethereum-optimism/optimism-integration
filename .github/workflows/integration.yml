@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Submodules
+        run: |
+          git submodule init
+          git submodule update
+
       - name: Test
         run: |
           bash test.sh
