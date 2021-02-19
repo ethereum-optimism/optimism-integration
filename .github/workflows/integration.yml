@@ -18,5 +18,5 @@ jobs:
 
       - name: Test
         run: |
-          docker-compose pull
+          ls
           ./test.sh
