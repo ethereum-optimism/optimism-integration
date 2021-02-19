@@ -18,4 +18,4 @@ jobs:
 
       - name: Test
         run: |
-          ./test.sh
+          bash test.sh
