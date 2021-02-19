@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eou pipefail
+# set -eou pipefail
 
 # PKGS are packages in the "integration-tests" repo.
 # The name of the directory must match the package name
