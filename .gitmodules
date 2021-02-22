@@ -13,3 +13,6 @@
 [submodule "data-transport-layer"]
 	path = data-transport-layer
 	url = git@github.com:ethereum-optimism/data-transport-layer.git
+[submodule "contracts-v2"]
+	path = contracts-v2
+	url = git@github.com:ethereum-optimism/contracts-v2.git
