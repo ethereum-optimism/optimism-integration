@@ -11,6 +11,13 @@ services:
     working_dir: /mnt/integration-tests
     entrypoint: ["sh", "-c", "yarn && yarn build"]
 
+  deployer:
+    image: ethereumoptimism/builder:latest
+    volumes:
+      - ./:/mnt
+    working_dir: /mnt/contracts-v2
+    entrypoint: ["sh", "-c", "yarn && yarn build"]
+
   geth_l2:
     image: ethereumoptimism/builder:latest
     volumes:
