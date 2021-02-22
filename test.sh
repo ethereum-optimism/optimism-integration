@@ -51,7 +51,9 @@ DATA_TRANSPORT_LAYER_TAG=$(echo $DATA_TRANSPORT_LAYER_TAG | sed 's/\//_/g')
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 
 function run {
+    local cmd
     cmd="docker-compose -f $DIR/$DOCKERFILE"
+    cmd="$cmd -f $DIR/docker-compose.env.yml"
     if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
         cmd="$cmd -f $DIR/optional/$PKGS-service.yml"
     fi
@@ -71,7 +73,9 @@ function run {
 }
 
 function clean {
+    local cmd
     cmd="docker-compose -f $DOCKERFILE"
+    cmd="$cmd -f $DIR/docker-compose.env.yml"
     if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
         cmd="$cmd -f $DIR/optional/$PKGS-service.yml"
     fi

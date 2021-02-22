@@ -8,8 +8,6 @@ services:
     image: ethereumoptimism/builder:latest
     volumes:
       - ./:/mnt
-    env_file:
-      - docker-compose.env
     working_dir: /mnt/integration-tests
     entrypoint: ["sh", "-c", "yarn && yarn build"]
 
@@ -18,8 +16,6 @@ services:
     volumes:
       - ./:/mnt
       - go-modules:/go/pkg/mod # Put modules cache into a separate volume
-    env_file:
-      - docker-compose.env
     ports:
       - 8545:8545
     entrypoint: ["make", "geth"]
@@ -27,8 +23,6 @@ services:
 
   batch_submitter:
     image: ethereumoptimism/builder:latest
-    env_file:
-      - docker-compose.env
     volumes:
       - ./:/mnt
     working_dir: /mnt/batch-submitter
@@ -36,8 +30,6 @@ services:
 
   data_transport_layer:
     image: ethereumoptimism/builder:latest
-    env_file:
-      - docker-compose.env
     volumes:
       - ./:/mnt
     working_dir: /mnt/data-transport-layer

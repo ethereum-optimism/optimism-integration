@@ -27,10 +27,12 @@ done
 
 docker-compose \
     -f $DIR/$DOCKERFILE \
+    -f $DIR/docker-compose.env.yml \
     -f $DIR/optional/x-domain-service.yml \
     down -v --remove-orphans
 
 docker-compose \
     -f $DIR/$DOCKERFILE \
+    -f $DIR/docker-compose.env.yml \
     -f $DIR/optional/x-domain-service.yml \
     up $SERVICES

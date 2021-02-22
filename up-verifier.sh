@@ -22,12 +22,14 @@ done
 
 docker-compose \
     -f $DOCKERFILE \
+    -f $DIR/docker-compose.env.yml \
     -f optional/verifier-service.yml \
     -f optional/verifier-service.local.yml \
     down -v --remove-orphans
 
 docker-compose \
     -f $DOCKERFILE \
+    -f $DIR/docker-compose.env.yml \
     -f optional/verifier-service.yml \
     -f optional/verifier-service.local.yml \
     up $SERVICES

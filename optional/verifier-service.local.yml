@@ -1,7 +1,6 @@
 version: "3"
 
 services:
-
   verifier:
     volumes:
     - verifier:/l2-node/l2:rw

@@ -5,8 +5,12 @@ Optimistic Ethereum environment including both L1 & L2 chains. This
 can be used to rapidly iterate over the many Optimism repositories and
 run integration tests.
 
-## Prerequisites
-This repo requires `docker` at version `20.10.2` and a docker memory allocation of >=12 GB.
+## Requirements
+
+- [docker](https://docs.docker.com/get-docker/)
+  - At least version `20.10.2`
+- Docker memory allocation of >=12 GB.
+
 
 ## Usage
 This package can be used to run tests, or even just spin up an easy-to-edit
