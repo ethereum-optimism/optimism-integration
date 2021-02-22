@@ -8,7 +8,9 @@ run integration tests.
 ## Requirements
 
 - [docker](https://docs.docker.com/get-docker/)
-  - At least version `20.10.2`
+  - At least version 19.03.12
+- [docker-compose](https://docs.docker.com/compose/install/)
+  - At least version 1.27.3
 - Docker memory allocation of >=12 GB.
 
 
