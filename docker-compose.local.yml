@@ -5,7 +5,8 @@ services:
     image: ethereumoptimism/integration-tests:${INTEGRATION_TESTS_TAG:-latest}
     volumes:
       - ./integration-tests:/integration-tests
-      - ./docker/integration-tests/wait-for-l1-and-l2-and-contract-deployment.sh:/integration-tests/wait.sh
+      - ./docker/integration-tests/wait-for-l1-and-l2-and-contract-deployment.sh:/wait.sh
+    entrypoint: ["/wait.sh", "yarn", "run", "ci"]
     environment:
       - "PKGS=${PKGS}"
 
