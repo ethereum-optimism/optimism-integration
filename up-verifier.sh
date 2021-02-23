@@ -1,5 +1,6 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 DOCKERFILE='docker-compose.local.yml'
 SERVICES="deployer verifier l1_chain batch_submitter geth_l2"
 
