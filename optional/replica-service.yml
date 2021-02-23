@@ -55,6 +55,7 @@ services:
       - GCMODE=archive
       - NO_DISCOVER=true
       - DEPLOYER_HTTP=http://deployer:8080
+      - ROLLUP_STATE_DUMP_PATH=http://deployer:8080/dumps/state-dump.latest.json
     ports:
       - 6545:8545
       - 6546:8546
