@@ -42,10 +42,10 @@ services:
 
   deployer:
     image: ethereumoptimism/deployer:${DEPLOYER_TAG:-latest}
-    working_dir: /contracts-v2
-    entrypoint: ["/opt/contracts-v2/wait-for-l1.sh", "/contracts-v2/bin/deploy.js"]
+    working_dir: /contracts
+    entrypoint: ["/opt/contracts/wait-for-l1.sh", "/contracts/bin/deploy.js"]
     volumes:
-      - ./contracts-v2:/contracts-v2
+      - ./contracts:/contracts
     ports:
       - 8080:8080
 

@@ -15,7 +15,7 @@ services:
     image: ethereumoptimism/builder:latest
     volumes:
       - ./:/mnt
-    working_dir: /mnt/contracts-v2
+    working_dir: /mnt/contracts
     entrypoint: ["sh", "-c", "yarn && yarn build"]
 
   geth_l2:
