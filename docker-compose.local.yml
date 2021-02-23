@@ -18,10 +18,12 @@ services:
   geth_l2:
     image: ethereumoptimism/go-ethereum:${GETH_L2_TAG:-latest}
     volumes:
-    - ./:/mnt
-    - geth:/l2-node/l2:rw
-    - go-modules:/go/pkg/mod # Put modules cache into a separate volume
-    - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth # Mount the locally built geth earlier in the PATH
+      - ./:/mnt
+      - geth:/l2-node/l2:rw
+     # Put modules cache into a separate volume
+      - go-modules:/go/pkg/mod
+     # Mount the locally built geth earlier in the PATH
+      - ./go-ethereum/build/bin/geth:/usr/local/sbin/geth
     ports:
       - 8545:8545
       - 8546:8546
