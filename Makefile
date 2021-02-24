@@ -1,10 +1,10 @@
-.PHONY: all integration-test deployer geth-l2 batch-submitter data-transport-layer test
+.PHONY: all integration-tests deployer geth-l2 batch-submitter data-transport-layer test
 
 all:
 	./build-local.sh
 
-docker:
-	./docker/build.sh
+up-local:
+	./up.sh -l
 
 integration-tests:
 	./build-local.sh -s integration_tests
@@ -21,12 +21,9 @@ batch-submitter:
 data-transport-layer:
 	./build-local.sh -s data_transport_layer
 
+# For developing against published docker images
 up: 
 	./up.sh
 
-# make up <package-name>
-up %:
-	./up.sh -l $@
-
 test:
-	./test.sh
+	./test.sh $(call args)

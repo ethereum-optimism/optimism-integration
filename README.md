@@ -25,12 +25,12 @@ $ git clone git@github.com:ethereum-optimism/optimism-integration.git --recurse-
 $ cd optimism-integration
 
 # The `docker` submodule is a one stop shop for building containers
-$ make docker
+$ ./docker/build.sh
 
 # Run tests
 $ make test
 
-# Run full system
+# Run published images of full system
 $ make up
 ```
 
@@ -76,7 +76,7 @@ To run the docker image `ethereumoptimism/go-ethereum:myfeature`, use the
 command:
 
 ```
-$ GETH_L2_TAG=myfeature ./up.sh
+$ GETH_L2_TAG=myfeature make up
 ```
 
 This is helpful when making changes to multiple repositories and testing the
@@ -112,7 +112,7 @@ $ make geth-l2
 To specify using the submodules with `up.sh`, use the `-l` flag:
 
 ```bash
-$ ./up.sh -l
+$ make up-local
 ```
 
 ### test.sh
@@ -132,7 +132,7 @@ Ethereum services.
 To run only a specific test suite:
 
 ```bash
-$ ./test.sh -p tx-ingestion
+$ make test -p tx-ingestion
 ```
 
 The `-p` flag is used to set the `PKGS` environment variable and is
