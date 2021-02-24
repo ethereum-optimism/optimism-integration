@@ -5,8 +5,11 @@
 # The `-l` flag will use mounted code.
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
-SERVICES='geth_l2 l1_chain batch_submitter deployer message_relayer data_transport_layer'
 DOCKERFILE="docker-compose.yml"
+# run all of the services except for the integration_tests
+SERVICES=$(docker-compose config --services \
+    | grep -v integration_tests \
+    | tr '\n' ' ')
 
 while (( "$#" )); do
   case "$1" in
