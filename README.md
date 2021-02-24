@@ -91,7 +91,7 @@ Optimistic Ethereum protocol itself.
 The submodules can be mounted in at runtime so that any changes to the
 submodules can be observed in the context of the whole system.
 Any compiled code must be built inside of a Docker container so that
-it is compiled correctly. The `build-local.sh` script is used for this
+it is compiled correctly. The Makefile is used for this
 purpose.
 
 To build all local submodules, run the command:
@@ -115,7 +115,7 @@ To specify using the submodules with `up.sh`, use the `-l` flag:
 $ make up-local
 ```
 
-### test.sh
+### Testing
 
 To run all of the tests:
 
