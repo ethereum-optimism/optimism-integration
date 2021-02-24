@@ -25,13 +25,13 @@ $ git clone git@github.com:ethereum-optimism/optimism-integration.git --recurse-
 $ cd optimism-integration
 
 # The `docker` submodule is a one stop shop for building containers
-$ ./docker/build.sh
+$ make docker
 
 # Run tests
-$ ./test.sh
+$ make test
 
 # Run full system
-$ ./up.sh
+$ make up
 ```
 
 Submodules are updated automatically as commits land in `master` in the
@@ -65,7 +65,7 @@ $ docker-compose pull
 To start all of the services, run the command:
 
 ```bash
-$ ./up.sh
+$ make up
 ```
 
 Particular Docker images can be used by specifying an environment variable at
@@ -97,7 +97,7 @@ purpose.
 To build all local submodules, run the command:
 
 ```bash
-$ ./build-local.sh
+$ make all
 ```
 
 To compile only a specific service, the `-s` flag can be used. The possible
@@ -106,7 +106,7 @@ services can be found in the `docker-compose.build.yml` file.
 To build only `go-ethereum`, run the command:
 
 ```bash
-$ ./build-local.sh -s geth_l2
+$ make geth-l2
 ```
 
 To specify using the submodules with `up.sh`, use the `-l` flag:
@@ -120,7 +120,7 @@ $ ./up.sh -l
 To run all of the tests:
 
 ```bash
-$ ./test.sh
+$ make test
 ```
 
 This script is used to run each of the `integration-tests` test suites
