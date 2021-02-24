@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  replica_data_transport_layer:
+    image: ethereumoptimism/data-transport-layer:${REPLICA_DATA_TRANSPORT_LAYER_TAG:-latest}
+    environment:
+      - DATA_TRANSPORT_LAYER__SYNC_FROM_L1=false
+      - DATA_TRANSPORT_LAYER__SYNC_FROM_L2=true
+      - DATA_TRANSPORT_LAYER__L2_RPC_ENDPOINT=http://geth_l2:8545
+      - DATA_TRANSPORT_LAYER__L2_CHAIN_ID=
+      - DATA_TRANSPORT_LAYER__DB_PATH=/db
+      - DATA_TRANSPORT_LAYER__SERVER_PORT=7878
+      - DATA_TRANSPORT_LAYER__TRANSACTIONS_PER_POLLING_INTERVAL=1000
+      - DATA_TRANSPORT_LAYER__L1_RPC_ENDPOINT=http://l1_chain:9545
+      - DATA_TRANSPORT_LAYER__CONFIRMATIONS=0
+      - DATA_TRANSPORT_LAYER__POLLING_INTERVAL=500
+      - DATA_TRANSPORT_LAYER__LOGS_PER_POLLING_INTERVAL=2000
+      - DATA_TRANSPORT_LAYER__DANGEROUSLY_CATCH_ALL_ERRORS=true
+      - DATA_TRANSPORT_LAYER__SERVER_HOSTNAME=0.0.0.0
+      - DATA_TRANSPORT_LAYER__ADDRESS_MANAGER=
+      - L1_NODE_WEB3_URL=http://l1_chain:9545
+      - DEPLOYER_HTTP=http://deployer:8080
+    ports:
+      - 7879:7878
+
+  replica_geth_l2:
+    image: ethereumoptimism/go-ethereum:${REPLICA_GETH_L2_TAG:-latest}
+    environment:
+      - ETH1_SYNC_SERVICE_ENABLE=true
+      - ETH1_CTC_DEPLOYMENT_HEIGHT=8
+      - ETH1_HTTP=http://l1_chain:9545
+      - ETH1_CONFIRMATION_DEPTH=0
+      - ROLLUP_CLIENT_HTTP=http://data_transport_layer:7878
+      - ROLLUP_POLL_INTERVAL_FLAG=3s
+      - ROLLUP_VERIFIER=true
+      - USING_OVM=true
+      - CHAIN_ID=420
+      - NETWORK_ID=420
+      - DEV=true
+      - DATADIR=/root/.ethereum
+      - RPC_ENABLE=true
+      - RPC_ADDR=0.0.0.0
+      - RPC_CORS_DOMAIN=*
+      - RPC_VHOSTS=*
+      - RPC_PORT=8545
+      - WS=true
+      - WS_ADDR=0.0.0.0
+      - IPC_DISABLE=true
+      - TARGET_GAS_LIMIT=9000000
+      - RPC_API=eth,net,rollup,web3,debug
+      - WS_API=eth,net,rollup,web3,debug
+      - WS_ORIGINS=*
+      - GASPRICE=0
+      - NO_USB=true
+      - GCMODE=archive
+      - NO_DISCOVER=true
+      - DEPLOYER_HTTP=http://deployer:8080
+      - ROLLUP_STATE_DUMP_PATH=http://deployer:8080/dumps/state-dump.latest.json
+    ports:
+      - 6545:8545
+      - 6546:8546
