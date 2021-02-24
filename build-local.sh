@@ -20,10 +20,9 @@ CLI Arguments:
   -h|--help      - help message
 "
 
-# These services are defined in the `docker-compose.build.yml`
-SERVICES="geth_l2
-batch_submitter
-integration_tests"
+# run all of the services except for the integration_tests
+SERVICES=$(docker-compose -f docker-compose.build.yml config --services \
+    | tr '\n' ' ')
 SERVICE=""
 
 while (( "$#" )); do
