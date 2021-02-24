@@ -29,16 +29,18 @@ done
 
 
 function branch() {
-    cd $1
-    BRANCH=$(git branch --show-current)
-    COMMIT=$(git rev-parse --short HEAD)
+    BRANCH=$(git --git-dir $DIR/$1 branch --show-current)
+    COMMIT=$(git --git-dir $DIR/$1 rev-parse --short HEAD)
     echo "$1 $BRANCH $COMMIT"
 }
 
 if [ ! -z "$IS_LOCAL" ]; then
-    (branch go-ethereum)
-    (branch optimism-monorepo)
-    (branch integration-tests)
+    git submodule foreach \
+        '
+            BRANCH=$(git branch --show-current)
+            COMMIT=$(git rev-parse --short HEAD)
+            echo "$BRANCH $COMMIT"
+        '
 fi
 
 docker-compose \
