@@ -5,7 +5,7 @@
 # The `-l` flag will use mounted code.
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
-SERVICES='geth_l2 l1_chain batch_submitter deployer message_relayer data_transport_layer'
+SERVICES=
 DOCKERFILE="docker-compose.yml"
 IS_LOCAL=
 
@@ -27,12 +27,18 @@ while (( "$#" )); do
   esac
 done
 
-
-function branch() {
-    BRANCH=$(git --git-dir $DIR/$1 branch --show-current)
-    COMMIT=$(git --git-dir $DIR/$1 rev-parse --short HEAD)
-    echo "$1 $BRANCH $COMMIT"
-}
+# If the services haven't been specified, parse
+# the docker-compose files for the services.
+# Run everything except for the integration tests
+if [ -z "$SERVICES" ]; then
+    SERVICES=$(docker-compose \
+        -f $DIR/$DOCKERFILE \
+        -f $DIR/docker-compose.env.yml \
+        -f $DIR/optional/x-domain-service.yml \
+        config --services \
+        | grep -v integration_tests \
+        | tr '\n' ' ')
+fi
 
 if [ ! -z "$IS_LOCAL" ]; then
     git submodule foreach \
