@@ -132,7 +132,7 @@ Ethereum services.
 To run only a specific test suite:
 
 ```bash
-$ make test-<test-suite.
+$ make test-<test-suite>
 ```
 
 The `-p` flag is used to set the `PKGS` environment variable and is

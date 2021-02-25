@@ -26,7 +26,7 @@ up:
 	./up.sh
 
 test:
-	./test.sh $(call args)
+	./test.sh
 
 test-%:
 	./test.sh -p $@
