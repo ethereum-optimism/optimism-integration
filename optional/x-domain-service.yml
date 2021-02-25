@@ -8,4 +8,5 @@ services:
       - L1_NODE_WEB3_URL=http://l1_chain:9545
       - L2_NODE_WEB3_URL=http://geth_l2:8545
       - DEPLOYER_HTTP=http://deployer:8080
+      - RETRIES=80
       - ADDRESS_MANAGER_ADDRESS=
