@@ -28,10 +28,10 @@ $ cd optimism-integration
 $ ./docker/build.sh
 
 # Run tests
-$ ./test.sh
+$ make test
 
-# Run full system
-$ ./up.sh
+# Run published images of full system
+$ make up
 ```
 
 Submodules are updated automatically as commits land in `master` in the
@@ -65,7 +65,7 @@ $ docker-compose pull
 To start all of the services, run the command:
 
 ```bash
-$ ./up.sh
+$ make up
 ```
 
 Particular Docker images can be used by specifying an environment variable at
@@ -76,7 +76,7 @@ To run the docker image `ethereumoptimism/go-ethereum:myfeature`, use the
 command:
 
 ```
-$ GETH_L2_TAG=myfeature ./up.sh
+$ GETH_L2_TAG=myfeature make up
 ```
 
 This is helpful when making changes to multiple repositories and testing the
@@ -91,13 +91,13 @@ Optimistic Ethereum protocol itself.
 The submodules can be mounted in at runtime so that any changes to the
 submodules can be observed in the context of the whole system.
 Any compiled code must be built inside of a Docker container so that
-it is compiled correctly. The `build-local.sh` script is used for this
+it is compiled correctly. The Makefile is used for this
 purpose.
 
 To build all local submodules, run the command:
 
 ```bash
-$ ./build-local.sh
+$ make all
 ```
 
 To compile only a specific service, the `-s` flag can be used. The possible
@@ -106,21 +106,21 @@ services can be found in the `docker-compose.build.yml` file.
 To build only `go-ethereum`, run the command:
 
 ```bash
-$ ./build-local.sh -s geth_l2
+$ make geth-l2
 ```
 
 To specify using the submodules with `up.sh`, use the `-l` flag:
 
 ```bash
-$ ./up.sh -l
+$ make up-local
 ```
 
-### test.sh
+### Testing
 
 To run all of the tests:
 
 ```bash
-$ ./test.sh
+$ make test
 ```
 
 This script is used to run each of the `integration-tests` test suites
@@ -132,7 +132,7 @@ Ethereum services.
 To run only a specific test suite:
 
 ```bash
-$ ./test.sh -p tx-ingestion
+$ make test-<test-suite>
 ```
 
 The `-p` flag is used to set the `PKGS` environment variable and is
