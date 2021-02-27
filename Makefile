@@ -1,7 +1,14 @@
 .PHONY: all integration-tests deployer geth-l2 batch-submitter data-transport-layer test
 
 all:
-	./build-local.sh
+	@echo "Building all modules locally..."
+	@echo "Use \`make <module-name>\` to build a specific module for saved time."
+	@read -p "Continue with building all? [y/n]: " yn; \
+	if [ $${yn} = "y" ]; then \
+		./build-local.sh; \
+	else \
+		exit 1; \
+	fi
 
 up-local:
 	./up.sh -l
