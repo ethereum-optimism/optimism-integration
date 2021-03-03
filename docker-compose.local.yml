@@ -45,7 +45,7 @@ services:
     working_dir: /contracts
     entrypoint: ["/opt/wait-for-l1.sh", "yarn", "run", "--silent", "deploy"]
     volumes:
-      - ./contracts:/contracts
+      - ./contracts:/opt/contracts
     ports:
       - 8080:8080
 
