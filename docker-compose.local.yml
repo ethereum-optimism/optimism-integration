@@ -43,7 +43,7 @@ services:
   deployer:
     image: ethereumoptimism/deployer:${DEPLOYER_TAG:-latest}
     working_dir: /contracts
-    entrypoint: ["/opt/wait-for-l1.sh", "yarn", "run", "--silent", "deploy"]
+    entrypoint: ["/wait-for-l1.sh", "yarn", "run", "--silent", "deploy"]
     volumes:
       - ./contracts:/opt/contracts
     ports:
