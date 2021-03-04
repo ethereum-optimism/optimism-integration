@@ -76,7 +76,7 @@ function run {
     INTEGRATION_TESTS_TAG=$INTEGRATION_TESTS_TAG \
     MESSAGE_RELAYER_TAG=$MESSAGE_RELAYER_TAG \
     DATA_TRANSPORT_LAYER_TAG=$DATA_TRANSPORT_LAYER_TAG \
-        $cmd &> $artifacts_folder/process.log # Send all process logs to process.log
+        $cmd 2>&1 | tee $artifacts_folder/process.log # Send all process logs to process.log
 
     (
         # Send all process logs to artifacts folder w/ service name as filename
