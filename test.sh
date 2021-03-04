@@ -83,14 +83,14 @@ function run {
         # Delimiter based on | which docker-compose uses in streamed logs
         cd $artifacts_folder
         cat process.log | grep -e "|"  \
-          | awk '{
-            idx = index($0, "| ");                  # Assign index of delimiter between service and log
-            service = substr($0, 0, idx);           # Assign variable for service
-            gsub("[^a-zA-Z0-9_]", "", service);     # Substitute any unnatural characters (e.g., spaces)
-            gsub("$", ".log", service);             # Add .log to end of variable (e.g., l1_chain.log)
-            outputfile = sprintf (service);         # Assign output file name to variable
-            print substr($0, idx + 2) > outputfile; # Send corresponding log to corresponding log file
-          }'
+            | awk '{
+                delimiter_idx = index($0, "| ");
+                service_name = substr($0, 0, delimiter_idx);
+                gsub("[^a-zA-Z0-9_]", "", service_name);
+                gsub("$", ".log", service_name);
+                outputfile = sprintf (service_name);
+                print substr($0, delimiter_idx + 2) > outputfile;
+            }'
     )
 
 }
