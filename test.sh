@@ -64,7 +64,6 @@ function run {
     cmd="$cmd up"
     cmd="$cmd --exit-code-from integration_tests"
     cmd="$cmd --abort-on-container-exit"
-    cmd="$cmd --no-color"
 
     echo "Logs available per-service at $artifacts_folder"
 
@@ -82,8 +81,10 @@ function run {
         # Send all process logs to artifacts folder w/ service name as filename
         # Delimiter based on | which docker-compose uses in streamed logs
         cd $artifacts_folder
-        cat process.log | grep -e "|"  \
-            | awk '{
+        cat process.log |
+            perl -pe 's/\x1b\[[0-9;]*[mG]//g' | # Remove bash color characters
+            grep -e "|" | # Only get log lines
+            awk '{
                 delimiter_idx = index($0, "| ");
                 service_name = substr($0, 0, delimiter_idx);
                 gsub("[^a-zA-Z0-9_]", "", service_name);
