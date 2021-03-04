@@ -8,6 +8,7 @@ set -eou pipefail
 
 PKGS=${PKGS:-""}
 DOCKERFILE=docker-compose.yml
+SUPPRESS_OUTPUT=${SUPPRESS_OUTPUT:-false}
 
 while (( "$#" )); do
   case "$1" in
@@ -22,6 +23,11 @@ while (( "$#" )); do
       ;;
     -l|--local)
       DOCKERFILE=docker-compose.local.yml
+      shift 1
+      ;;
+    -s|--suppress-output)
+      echo "Logs will not be streamed and instead only be available as artifacts"
+      SUPPRESS_OUTPUT=true
       shift 1
       ;;
     *)
@@ -67,15 +73,22 @@ function run {
 
     echo "Logs available per-service at $artifacts_folder"
 
-    PKGS=$PKGS \
-    DEPLOYER_TAG=$DEPLOYER_TAG \
-    BATCH_SUBMITTER_TAG=$BATCH_SUBMITTER_TAG \
-    GETH_L2_TAG=$GETH_L2_TAG \
-    L1_CHAIN_TAG=$L1_CHAIN_TAG \
-    INTEGRATION_TESTS_TAG=$INTEGRATION_TESTS_TAG \
-    MESSAGE_RELAYER_TAG=$MESSAGE_RELAYER_TAG \
-    DATA_TRANSPORT_LAYER_TAG=$DATA_TRANSPORT_LAYER_TAG \
-        $cmd 2>&1 | tee $artifacts_folder/process.log # Send all process logs to process.log
+    (
+      export PKGS=$PKGS;
+      export DEPLOYER_TAG=$DEPLOYER_TAG;
+      export BATCH_SUBMITTER_TAG=$BATCH_SUBMITTER_TAG;
+      export GETH_L2_TAG=$GETH_L2_TAG;
+      export L1_CHAIN_TAG=$L1_CHAIN_TAG;
+      export INTEGRATION_TESTS_TAG=$INTEGRATION_TESTS_TAG;
+      export MESSAGE_RELAYER_TAG=$MESSAGE_RELAYER_TAG;
+      export DATA_TRANSPORT_LAYER_TAG=$DATA_TRANSPORT_LAYER_TAG;
+    
+      if [ "$SUPPRESS_OUTPUT" = true ]; then
+        $cmd &> $artifacts_folder/process.log
+      else
+        $cmd 2>&1 | tee $artifacts_folder/process.log
+      fi
+    )
 
     (
         # Send all process logs to artifacts folder w/ service name as filename
