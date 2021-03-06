@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  batch_submitter:
+    image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-latest}
+    volumes:
+     - ./batch-submitter:/opt/batch-submitter
