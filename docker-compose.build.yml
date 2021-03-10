@@ -6,6 +6,7 @@ volumes:
 services:
   integration_tests:
     image: ethereumoptimism/builder:latest
+    network_mode: host
     volumes:
       - ./:/mnt
     working_dir: /mnt/integration-tests
@@ -13,6 +14,7 @@ services:
 
   deployer:
     image: ethereumoptimism/builder:latest
+    network_mode: host
     volumes:
       - ./:/mnt
     working_dir: /mnt/contracts
@@ -20,6 +22,7 @@ services:
 
   geth_l2:
     image: ethereumoptimism/builder:latest
+    network_mode: host
     volumes:
       - ./:/mnt
       - go-modules:/go/pkg/mod # Put modules cache into a separate volume
@@ -30,6 +33,7 @@ services:
 
   batch_submitter:
     image: ethereumoptimism/builder:latest
+    network_mode: host
     volumes:
       - ./:/mnt
     working_dir: /mnt/batch-submitter
@@ -37,6 +41,7 @@ services:
 
   data_transport_layer:
     image: ethereumoptimism/builder:latest
+    network_mode: host
     volumes:
       - ./:/mnt
     working_dir: /mnt/data-transport-layer

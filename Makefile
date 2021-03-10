@@ -1,14 +1,9 @@
 .PHONY: all integration-tests deployer geth-l2 batch-submitter data-transport-layer test
 
 all:
-	@echo "Building all modules locally..."
-	@echo "Use \`make <module-name>\` to build a specific module for saved time."
-	@read -p "Continue with building all? [y/n]: " yn; \
-	if [ $${yn} = "y" ]; then \
-		./build-local.sh; \
-	else \
-		exit 1; \
-	fi
+	@echo "Building in parallel in the background"
+	./build-local.sh
+	@while :; do [[ $$(docker ps --format='{{.Image}}' | grep builder | wc -l) == 0 ]] && exit 0; sleep 2; done;
 
 up-local:
 	./up.sh -l
@@ -29,7 +24,7 @@ data-transport-layer:
 	./build-local.sh -s data_transport_layer
 
 # For developing against published docker images
-up: 
+up:
 	./up.sh
 
 test:

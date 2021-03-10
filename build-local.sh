@@ -58,8 +58,8 @@ docker volume ls --format='{{.Name}}' \
 
 if [ -z $SERVICE ]; then
     for SERVICE in $SERVICES; do
-      docker-compose -f docker-compose.build.yml up $SERVICE
+      docker-compose -f docker-compose.build.yml run --rm -d $SERVICE
     done
 else
-    docker-compose -f docker-compose.build.yml up $SERVICE
+    docker-compose -f docker-compose.build.yml run --rm $SERVICE
 fi
