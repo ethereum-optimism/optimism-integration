@@ -26,8 +26,6 @@ services:
     volumes:
       - ./:/mnt
       - go-modules:/go/pkg/mod # Put modules cache into a separate volume
-    ports:
-      - 8545:8545
     entrypoint: ["make", "geth"]
     working_dir: /mnt/go-ethereum
 
