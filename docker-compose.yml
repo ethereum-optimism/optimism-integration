@@ -21,6 +21,8 @@ services:
 
   batch_submitter:
     image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-latest}
+    volumes:
+     - ./batch-submitter:/opt/batch-submitter
 
   data_transport_layer:
     image: ethereumoptimism/data-transport-layer:${DATA_TRANSPORT_LAYER_TAG:-latest}
