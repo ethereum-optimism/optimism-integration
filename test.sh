@@ -8,6 +8,7 @@ set -eou pipefail
 
 PKGS=${PKGS:-""}
 DOCKERFILE=docker-compose.yml
+LOCAL_SUBMODULES=${LOCAL_SUBMODULES:-""}
 SUPPRESS_OUTPUT=${SUPPRESS_OUTPUT:-false}
 
 while (( "$#" )); do
@@ -22,8 +23,8 @@ while (( "$#" )); do
       fi
       ;;
     -l|--local)
-      DOCKERFILE=docker-compose.local.yml
-      shift 1
+      LOCAL_SUBMODULES=$2
+      shift 2
       ;;
     -s|--suppress-output)
       echo "Logs will not be streamed and instead only be available as artifacts"
@@ -63,6 +64,18 @@ function run {
 
     local cmd
     cmd="docker-compose -f $DIR/$DOCKERFILE"
+    # Load any local submodules specified
+variable=abc,def,ghij
+    for i in $(echo $LOCAL_SUBMODULES | sed "s/,/ /g")
+    do
+      dcfile=$DIR/optional/local/$i.local.yml
+      if test -f "$dcfile"; then
+        cmd="$cmd -f $dcfile"
+      else
+        echo "Error: Docker compose file $dcfile not found! Make sure your local submodule is specified correctly."
+        exit 1
+      fi
+    done
     cmd="$cmd -f $DIR/docker-compose.env.yml"
     if [ -f "$DIR/optional/$PKGS-service.yml" ]; then
         cmd="$cmd -f $DIR/optional/$PKGS-service.yml"

@@ -1,5 +1,9 @@
 .PHONY: all integration-tests deployer geth-l2 batch-submitter data-transport-layer test
 
+pull:
+	@echo "Pulling & building all remote images..."
+	./pull.sh
+
 all:
 	@echo "Building all modules locally..."
 	@echo "Use \`make <module-name>\` to build a specific module for saved time."
@@ -9,9 +13,6 @@ all:
 	else \
 		exit 1; \
 	fi
-
-up-local:
-	./up.sh -l
 
 integration-tests:
 	./build-local.sh -s integration_tests
@@ -27,13 +28,3 @@ batch-submitter:
 
 data-transport-layer:
 	./build-local.sh -s data_transport_layer
-
-# For developing against published docker images
-up: 
-	./up.sh
-
-test:
-	./test.sh
-
-test-%:
-	./test.sh -p $@

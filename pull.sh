@@ -1,5 +1,5 @@
 #!/bin/bash
 
-git pull --recurse-submodules
+git pull origin master --recurse-submodules
 git submodule update
 docker-compose pull
