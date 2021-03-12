@@ -22,9 +22,13 @@ jobs:
           git submodule init
           git submodule update
 
+      - name: Build
+        run: |
+          make all
+
       - name: Test
         run: |
-          bash test.sh --suppress-output
+          bash test.sh -l --suppress-output
 
       - name: Upload Log Artifacts
         uses: actions/upload-artifact@v2
