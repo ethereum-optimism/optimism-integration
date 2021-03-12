@@ -1,5 +1,7 @@
 .PHONY: all integration-tests deployer geth-l2 batch-submitter data-transport-layer test
 
+SHELL = /bin/bash
+
 all:
 	@echo "Building in parallel in the background"
 	./build-local.sh
