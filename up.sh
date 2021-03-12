@@ -56,7 +56,6 @@ cmd="docker-compose \
 
 # docker compose down - to remove old containers and volumes
 down="$cmd down -v --remove-orphans"
-$down
 
 # docker compose up - to spin up the full system
 up="$cmd"
@@ -71,4 +70,7 @@ do
   fi
 done
 up="$up up $SERVICES"
+
+# execute `dc down` & `dc up`
+$down
 $up
