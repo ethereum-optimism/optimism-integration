@@ -1,0 +1,43 @@
+name: Open PRs to Submodules
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Open PRs on changes to submodules
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Submodules
+        run: |
+          sed -i -Ee's#git@github.com:([^/]*)/(.*).git#https://github.com/\1/\2.git#' .gitmodules
+          git submodule init
+          git submodule update
+
+      - name: Create Pull Request
+        shell: bash
+        id: create-pr
+        run: |
+          git submodule foreach '
+            TARGET=$(git rev-parse --short master)
+            CURRENT=$(git rev-parse --short HEAD)
+
+            if [ "$CURRENT" = "$TARGET" ]; then
+              echo "No updates to $name"
+            else
+              # get the current branch that represents head
+              BRANCH=$(git ls-remote --heads origin | grep $(git rev-parse HEAD) | cut -d / -f 3)
+              BODY="{\"title\":\"Integrations: $BRANCH - ${{ github.head_ref }}\",\"head\":\"$BRANCH\",\"base\":\"master\",\"body\":\"Automated PR\"}"
+              curl --silent \
+                -X POST \
+                -H "authorization: Bearer ${{ secrets.PULL_REQUEST_TOKEN }}" \
+                -H "Accept: application/vnd.github.v3+json" \
+                https://api.github.com/repos/ethereum-optimism/$name/pulls \
+                -d "$BODY" || true
+            fi;
+          '
