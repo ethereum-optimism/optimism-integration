@@ -28,7 +28,7 @@ jobs:
 
       - name: Test
         run: |
-          ./test.sh -l --suppress-output
+          ./test.sh -l
 
       - name: Upload Log Artifacts
         uses: actions/upload-artifact@v2
