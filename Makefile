@@ -1,4 +1,4 @@
-.PHONY: all integration-tests deployer geth-l2 batch-submitter data-transport-layer test
+.PHONY: all integration-tests deployer geth-l2 batch-submitter transaction-indexer test
 
 SHELL := /bin/bash
 
@@ -22,8 +22,8 @@ geth-l2:
 batch-submitter:
 	./build-local.sh -s batch_submitter
 
-data-transport-layer:
-	./build-local.sh -s data_transport_layer
+transaction-indexer:
+	./build-local.sh -s transaction_indexer
 
 # For developing against published docker images
 up:

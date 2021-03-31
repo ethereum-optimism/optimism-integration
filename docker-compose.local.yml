@@ -33,10 +33,10 @@ services:
     volumes:
      - ./batch-submitter:/opt/batch-submitter
 
-  data_transport_layer:
-    image: ethereumoptimism/data-transport-layer:${DATA_TRANSPORT_LAYER_TAG:-latest}
+  transaction_indexer:
+    image: ethereumoptimism/transaction-indexer:${TRANSACTION_INDEXER_TAG:-latest}
     volumes:
-      - ./data-transport-layer:/opt/data-transport-layer
+      - ./transaction-indexer:/opt/transaction-indexer
     ports:
       - 7878:7878
 
