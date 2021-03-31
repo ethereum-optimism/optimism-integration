@@ -22,8 +22,8 @@ services:
   batch_submitter:
     image: ethereumoptimism/batch-submitter:${BATCH_SUBMITTER_TAG:-latest}
 
-  data_transport_layer:
-    image: ethereumoptimism/data-transport-layer:${DATA_TRANSPORT_LAYER_TAG:-latest}
+  transaction_indexer:
+    image: ethereumoptimism/transaction-indexer:${TRANSACTION_INDEXER_TAG:-latest}
     ports:
       - 7878:7878
 
