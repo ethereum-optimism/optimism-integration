@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  data_transport_layer:
+    image: ethereumoptimism/data-transport-layer:${DATA_TRANSPORT_LAYER_TAG:-latest}
+    volumes:
+      - ./data-transport-layer:/opt/data-transport-layer
+    ports:
+      - 7878:7878

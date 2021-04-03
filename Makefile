@@ -2,13 +2,14 @@
 
 SHELL := /bin/bash
 
+pull:
+	@echo "Pulling & building all remote images..."
+	./pull.sh
+
 all:
 	@echo "Building in parallel in the background"
 	./build-local.sh
 	@while :; do [ $$(docker ps --format='{{.Image}}' | grep builder | wc -l) == 0 ] && exit 0; sleep 2; done;
-
-up-local:
-	./up.sh -l
 
 integration-tests:
 	./build-local.sh -s integration_tests
@@ -24,13 +25,3 @@ batch-submitter:
 
 data-transport-layer:
 	./build-local.sh -s data_transport_layer
-
-# For developing against published docker images
-up:
-	./up.sh
-
-test:
-	./test.sh
-
-test-%:
-	./test.sh -p $@

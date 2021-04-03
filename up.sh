@@ -12,9 +12,9 @@ IS_LOCAL=
 while (( "$#" )); do
   case "$1" in
     -l|--local)
-      DOCKERFILE="docker-compose.local.yml"
       IS_LOCAL=true
-      shift 1
+      LOCAL_SUBMODULES=$2
+      shift 2
       ;;
     -s|--services)
       SERVICES="$2"
@@ -49,14 +49,28 @@ if [ ! -z "$IS_LOCAL" ]; then
         '
 fi
 
-docker-compose \
+cmd="docker-compose \
     -f $DIR/$DOCKERFILE \
     -f $DIR/docker-compose.env.yml \
-    -f $DIR/optional/x-domain-service.yml \
-    down -v --remove-orphans
+    -f $DIR/optional/x-domain-service.yml"
 
-docker-compose \
-    -f $DIR/$DOCKERFILE \
-    -f $DIR/docker-compose.env.yml \
-    -f $DIR/optional/x-domain-service.yml \
-    up $SERVICES
+# docker compose down - to remove old containers and volumes
+down="$cmd down -v --remove-orphans"
+
+# docker compose up - to spin up the full system
+up="$cmd"
+for i in $(echo $LOCAL_SUBMODULES | sed "s/,/ /g")
+do
+  dcfile=$DIR/optional/local/$i.local.yml
+  if test -f "$dcfile"; then
+    up="$up -f $dcfile"
+  else
+    echo "Error: Docker compose file $dcfile not found! Make sure your local submodule is specified correctly."
+    exit 1
+  fi
+done
+up="$up up $SERVICES"
+
+# execute `dc down` & `dc up`
+$down
+$up
